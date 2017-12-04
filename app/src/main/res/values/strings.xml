@@ -3,4 +3,11 @@
     <string name="logo">logo</string>
     <string name="calculate">Рассчитать</string>
     <string name="company_info">О компании</string>
+    <string name="object">Объект</string>
+    <string name="name">Название</string>
+    <string name="who_are_you">Кто вы?</string>
+    <string name="type_of_cladding">Вид облицовки</string>
+    <string name="wall_perimeter">Периметр стен</string>
+    <string name="building_height">Высота здания</string>
+    <string name="door_way">Проемы</string>
 </resources>
