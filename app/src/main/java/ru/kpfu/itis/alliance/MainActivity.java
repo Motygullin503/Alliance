@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import ru.kpfu.itis.alliance.fragments.CalculateFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     Activity context = this;
@@ -33,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CompanyInfoActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        toCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                CalculateFragment calculateFragment = CalculateFragment.newInstance();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_calculate, calculateFragment, calculateFragment.getTag()).commit();
+                Intent intent = new Intent(context, CalculateActivity.class);
                 startActivity(intent);
                 finish();
             }
