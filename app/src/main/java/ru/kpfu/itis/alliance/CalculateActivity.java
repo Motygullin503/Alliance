@@ -14,6 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class CalculateActivity extends AppCompatActivity {
+    public static final String DESIGNER ="DESIGNER";
+    public static final String EXECUTOR ="EXECUTOR";
+    public static final String CUSTOMER ="CUSTOMER";
+    public static final String PRIVATEPERSON ="PRIVATEPERSON";
+
+
     private Activity context = this;
     private TextView toolbarTitle;
     private EditText nameCompany;
