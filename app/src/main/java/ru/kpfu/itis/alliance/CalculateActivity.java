@@ -12,13 +12,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CalculateActivity extends AppCompatActivity {
     public static final String DESIGNER ="DESIGNER";
     public static final String EXECUTOR ="EXECUTOR";
     public static final String CUSTOMER ="CUSTOMER";
     public static final String PRIVATEPERSON ="PRIVATEPERSON";
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
 
+    private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
     private Activity context = this;
     private TextView toolbarTitle;
@@ -64,6 +70,19 @@ public class CalculateActivity extends AppCompatActivity {
         toolbarTitle = myToolbar.findViewById(R.id.toolbar_title);
 
         toolbarTitle.setText("Рассчет");
+
+
+        btnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!validateEmail(etEmail.getText().toString())){
+                    Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+            }
+        });
+
     }
 
     @Override
@@ -80,6 +99,11 @@ public class CalculateActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
 
+    }
+
+    public boolean validateEmail(String email) {
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 }
