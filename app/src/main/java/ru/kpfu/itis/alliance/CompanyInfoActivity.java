@@ -30,7 +30,7 @@ public class CompanyInfoActivity extends AppCompatActivity {
 
         toolbarTitle = myToolbar.findViewById(R.id.toolbar_title);
 
-        toolbarTitle.setText("О компании");
+        toolbarTitle.setText(R.string.company_info);
     }
 
     @Override
