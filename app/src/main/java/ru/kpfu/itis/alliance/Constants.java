@@ -5,8 +5,8 @@ package ru.kpfu.itis.alliance;
  */
 
 public class Constants {
-    public static final Integer COMPOSITE = 0;
-    public static final Integer KERAMOGRANITE = 1;
-    public static final Integer FIBROPLITA = 2;
-    public static final Integer METALLOKASSETA = 3;
+    public static final int COMPOSITE = 0;
+    public static final int KERAMOGRANITE = 1;
+    public static final int FIBROPLITA = 2;
+    public static final int METALLOKASSETA = 3;
 }

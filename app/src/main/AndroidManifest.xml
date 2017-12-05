@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,12 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CompanyInfoActivity"
+            android:name=".activities.CompanyInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CalculateActivity"
+            android:name=".activities.CalculateActivity"
             android:label="@string/title_activity_calculate"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.TypeOfSystemActivity" />
+        <activity android:name=".activities.WhoAreActivity"></activity>
     </application>
 
 </manifest>

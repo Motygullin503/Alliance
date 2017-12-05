@@ -1,10 +1,8 @@
-package ru.kpfu.itis.alliance;
+package ru.kpfu.itis.alliance.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -17,11 +15,14 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ru.kpfu.itis.alliance.Constants;
+import ru.kpfu.itis.alliance.R;
+
 public class CalculateActivity extends AppCompatActivity {
-    public static final String DESIGNER ="DESIGNER";
-    public static final String EXECUTOR ="EXECUTOR";
-    public static final String CUSTOMER ="CUSTOMER";
-    public static final String PRIVATEPERSON ="PRIVATEPERSON";
+    public static final int CUSTOMER = 1;
+    public static final int DESIGNER = 2;
+    public static final int EXECUTOR = 3;
+    public static final int PRIVATEPERSON = 4;
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
 
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -41,6 +42,9 @@ public class CalculateActivity extends AppCompatActivity {
     private EditText etNumberOfPhone;
     private Button btnCalculate;
 
+    private int typeCladdingValue = Constants.COMPOSITE;
+    private int whoAreYou = CalculateActivity.CUSTOMER;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +54,13 @@ public class CalculateActivity extends AppCompatActivity {
         whoAre = findViewById(R.id.tv_who_are);
         typeCladding = findViewById(R.id.type_of_cladding);
         perimetrWall = findViewById(R.id.et_perimetr);
-        buildingHeight= findViewById(R.id.et_building_height);
-        squareWindow= findViewById(R.id.et_square_window);
-        quantityWindow= findViewById(R.id.et_quantity_window);
-        squareDoor= findViewById(R.id.et_square_door);
-        quantityDoor= findViewById(R.id.et_quantity_door);
-        etNumberOfPhone= findViewById(R.id.et_number_of_phone);
-        etEmail= findViewById(R.id.et_email);
+        buildingHeight = findViewById(R.id.et_building_height);
+        squareWindow = findViewById(R.id.et_square_window);
+        quantityWindow = findViewById(R.id.et_quantity_window);
+        squareDoor = findViewById(R.id.et_square_door);
+        quantityDoor = findViewById(R.id.et_quantity_door);
+        etNumberOfPhone = findViewById(R.id.et_number_of_phone);
+        etEmail = findViewById(R.id.et_email);
         btnCalculate = findViewById(R.id.btn_calculate_price);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
@@ -68,23 +72,34 @@ public class CalculateActivity extends AppCompatActivity {
 
 
         toolbarTitle = myToolbar.findViewById(R.id.toolbar_title);
-
         toolbarTitle.setText("Рассчет");
 
         whoAre.setText("Заказчик");
-        typeCladding.setText("Композит");
+
+        Intent intent = getIntent();
+        typeCladdingValue = intent.getIntExtra("type", Constants.COMPOSITE);
+        whoAreYou = intent.getIntExtra("who_are", CUSTOMER);
+        setTypeCladding();
+        setWhoAre();
+
 
         whoAre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, WhoAreActivity.class);
+                intent.putExtra("who_are", DESIGNER);
+                startActivity(intent);
+                finish();
             }
         });
 
         typeCladding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, TypeOfSystemActivity.class);
+                intent.putExtra("type", Constants.COMPOSITE);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -92,7 +107,7 @@ public class CalculateActivity extends AppCompatActivity {
         btnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateEmail(etEmail.getText().toString())){
+                if (!validateEmail(etEmail.getText().toString())) {
                     Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -121,6 +136,39 @@ public class CalculateActivity extends AppCompatActivity {
     public boolean validateEmail(String email) {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public void setTypeCladding() {
+        switch (typeCladdingValue) {
+            case Constants.COMPOSITE:
+                typeCladding.setText(R.string.composit);
+                break;
+            case Constants.KERAMOGRANITE:
+                typeCladding.setText(R.string.keramogranit);
+                break;
+            case Constants.FIBROPLITA:
+                typeCladding.setText(R.string.fibroplita);
+                break;
+            case Constants.METALLOKASSETA:
+                typeCladding.setText(R.string.metallokaseta);
+        }
+    }
+
+    public void setWhoAre() {
+        switch (whoAreYou) {
+            case CUSTOMER:
+                whoAre.setText(R.string.customer);
+                break;
+            case EXECUTOR:
+                whoAre.setText(R.string.executor);
+                break;
+            case PRIVATEPERSON:
+                whoAre.setText(R.string.private_person);
+                break;
+            case DESIGNER:
+                whoAre.setText(R.string.designer);
+                break;
+        }
     }
 
 }

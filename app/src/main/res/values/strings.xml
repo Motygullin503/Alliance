@@ -21,4 +21,12 @@
     <string name="contacts">Эл.почта : info@afkon.ru , Телефоны : + 7 (843) 203-37-67, 245-36-86</string>
     <string name="toSite">Перейти на сайт</string>
     <string name="title_activity_calculate">CalculateActivity</string>
+    <string name="composit">Композит</string>
+    <string name="keramogranit">Керамогранит</string>
+    <string name="fibroplita">Фиброплита</string>
+    <string name="metallokaseta">Металлокасета</string>
+    <string name="designer">Проектировщик</string>
+    <string name="executor">Исполнитель</string>
+    <string name="customer">Заказчик</string>
+    <string name="private_person">Частное лицо</string>
 </resources>

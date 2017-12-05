@@ -1,4 +1,4 @@
-package ru.kpfu.itis.alliance;
+package ru.kpfu.itis.alliance.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.nio.channels.AcceptPendingException;
+import ru.kpfu.itis.alliance.R;
+import ru.kpfu.itis.alliance.activities.MainActivity;
 
 public class CompanyInfoActivity extends AppCompatActivity {
     Activity context = this;
