@@ -14,10 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class CalculateActivity extends AppCompatActivity {
-    public static final String DESIGNER ="DESIGNER";
-    public static final String EXECUTOR ="EXECUTOR";
-    public static final String CUSTOMER ="CUSTOMER";
-    public static final String PRIVATEPERSON ="PRIVATEPERSON";
+    public static final String DESIGNER = "DESIGNER";
+    public static final String EXECUTOR = "EXECUTOR";
+    public static final String CUSTOMER = "CUSTOMER";
+    public static final String PRIVATEPERSON = "PRIVATEPERSON";
 
 
     private Activity context = this;
@@ -44,13 +44,13 @@ public class CalculateActivity extends AppCompatActivity {
         whoAre = findViewById(R.id.tv_who_are);
         typeCladding = findViewById(R.id.type_of_cladding);
         perimetrWall = findViewById(R.id.et_perimetr);
-        buildingHeight= findViewById(R.id.et_building_height);
-        squareWindow= findViewById(R.id.et_square_window);
-        quantityWindow= findViewById(R.id.et_quantity_window);
-        squareDoor= findViewById(R.id.et_square_door);
-        quantityDoor= findViewById(R.id.et_quantity_door);
-        etNumberOfPhone= findViewById(R.id.et_number_of_phone);
-        etEmail= findViewById(R.id.et_email);
+        buildingHeight = findViewById(R.id.et_building_height);
+        squareWindow = findViewById(R.id.et_square_window);
+        quantityWindow = findViewById(R.id.et_quantity_window);
+        squareDoor = findViewById(R.id.et_square_door);
+        quantityDoor = findViewById(R.id.et_quantity_door);
+        etNumberOfPhone = findViewById(R.id.et_number_of_phone);
+        etEmail = findViewById(R.id.et_email);
         btnCalculate = findViewById(R.id.btn_calculate_price);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
@@ -60,10 +60,25 @@ public class CalculateActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
         toolbarTitle = myToolbar.findViewById(R.id.toolbar_title);
-
         toolbarTitle.setText("Рассчет");
+
+        whoAre.setText("Заказчик");
+        typeCladding.setText("Композит");
+
+        whoAre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        typeCladding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
