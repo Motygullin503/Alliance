@@ -55,18 +55,18 @@ public class TypeOfSystemActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(this, CalculateActivity.class);
+        Intent intent = new Intent();
         intent.putExtra("type", getStateRadioButton());
-        startActivity(intent);
+        setResult(RESULT_OK, intent);
         finish();
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(context, CalculateActivity.class);
+        Intent intent = new Intent();
         intent.putExtra("type", getStateRadioButton());
-        startActivity(intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 

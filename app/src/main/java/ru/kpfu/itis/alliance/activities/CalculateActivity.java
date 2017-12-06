@@ -24,6 +24,8 @@ public class CalculateActivity extends AppCompatActivity {
     public static final int EXECUTOR = 3;
     public static final int PRIVATEPERSON = 4;
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
+    private final int REQUEST_CODE_WHO_ARE = 10;
+    private final int REQUEST_CODE_TYPE_OF_SYSTEM = 20;
 
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
@@ -76,9 +78,6 @@ public class CalculateActivity extends AppCompatActivity {
 
         whoAre.setText("Заказчик");
 
-        Intent intent = getIntent();
-        typeCladdingValue = intent.getIntExtra("type", Constants.COMPOSITE);
-        whoAreYou = intent.getIntExtra("who_are", CUSTOMER);
         setTypeCladding();
         setWhoAre();
 
@@ -88,8 +87,7 @@ public class CalculateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, WhoAreActivity.class);
                 intent.putExtra("who_are", DESIGNER);
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, REQUEST_CODE_WHO_ARE);
             }
         });
 
@@ -98,8 +96,7 @@ public class CalculateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, TypeOfSystemActivity.class);
                 intent.putExtra("type", Constants.COMPOSITE);
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, REQUEST_CODE_TYPE_OF_SYSTEM);
             }
         });
 
@@ -171,4 +168,19 @@ public class CalculateActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_TYPE_OF_SYSTEM:
+                    typeCladdingValue = data.getIntExtra("type", Constants.COMPOSITE);
+                    setTypeCladding();
+                    break;
+                case REQUEST_CODE_WHO_ARE:
+                    whoAreYou = data.getIntExtra("who_are", CUSTOMER);
+                    setWhoAre();
+                    break;
+            }
+        }
+    }
 }
