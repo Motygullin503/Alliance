@@ -12,11 +12,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.kpfu.itis.alliance.Constants;
 import ru.kpfu.itis.alliance.R;
+import ru.kpfu.itis.alliance.ResourceCalculator;
+import ru.kpfu.itis.alliance.allianceAPI.Api;
+import ru.kpfu.itis.alliance.models.CalculationResult;
+import ru.kpfu.itis.alliance.models.ResponseError;
+import ru.kpfu.itis.alliance.models.ResponseSuccess;
 
 public class CalculateActivity extends AppCompatActivity {
     public static final int CUSTOMER = 1;
@@ -43,6 +53,8 @@ public class CalculateActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etNumberOfPhone;
     private Button btnCalculate;
+    private Api api;
+    private ResourceCalculator calculator;
 
     private int typeCladdingValue = Constants.COMPOSITE;
     private int whoAreYou = CalculateActivity.CUSTOMER;
@@ -107,7 +119,44 @@ public class CalculateActivity extends AppCompatActivity {
                 if (!validateEmail(etEmail.getText().toString())) {
                     Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
                 } else {
+                    api = Api.getInstance();
+                    calculator = new ResourceCalculator(
+                            Double.valueOf(perimetrWall.getText().toString()),
+                            Double.valueOf(buildingHeight.getText().toString()),
+                            Double.valueOf(squareWindow.getText().toString()),
+                            Integer.valueOf(quantityWindow.getText().toString()),
+                            Double.valueOf(squareDoor.getText().toString()),
+                            Integer.valueOf(quantityDoor.getText().toString()),
+                            whoAreYou);
+                    try {
+                        List<CalculationResult> list = calculator.getCalculationResults();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Call<Object> call = api.getApi().sendData(etEmail.getText().toString(),
+                            etNumberOfPhone.getText().toString(),
+                            whoAre.getText().toString(),
+                            "android",
+                            calculator.getTotalSum(),
+                            true);
 
+                    call.enqueue(new Callback<Object>() {
+                        @Override
+                        public void onResponse(Call<Object> call, Response<Object> response) {
+                            if (response.body() instanceof ResponseSuccess) {
+
+                            } else if (response.body() instanceof ResponseError) {
+                                for (Object error : ((ResponseError) response.body()).getErrors()) {
+                                    Toast.makeText(CalculateActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+                            Toast.makeText(CalculateActivity.this, "Что-то пошло не так, повторите позднее", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
