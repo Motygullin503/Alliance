@@ -8,6 +8,10 @@
     android:clickable="true"
     tools:layout_editor_absoluteY="25dp"
     >
+    <FrameLayout
+        android:id="@+id/fragment_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <ScrollView
         android:layout_width="match_parent"

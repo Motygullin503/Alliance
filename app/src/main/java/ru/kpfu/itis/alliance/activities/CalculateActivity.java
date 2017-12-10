@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +25,7 @@ import ru.kpfu.itis.alliance.Constants;
 import ru.kpfu.itis.alliance.R;
 import ru.kpfu.itis.alliance.ResourceCalculator;
 import ru.kpfu.itis.alliance.allianceAPI.Api;
+import ru.kpfu.itis.alliance.fragments.ResultFragment;
 import ru.kpfu.itis.alliance.models.CalculationResult;
 import ru.kpfu.itis.alliance.models.ResponseError;
 import ru.kpfu.itis.alliance.models.ResponseSuccess;
@@ -119,7 +121,8 @@ public class CalculateActivity extends AppCompatActivity {
                 if (!validateEmail(etEmail.getText().toString())) {
                     Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(context, ResultAcitivity.class);
+//                    Intent intent = new Intent(context, ResultAcitivity.class);
+                    Bundle args = new Bundle();
                     api = Api.getInstance();
                     calculator = new ResourceCalculator(
                             Double.valueOf(perimetrWall.getText().toString()),
@@ -131,6 +134,8 @@ public class CalculateActivity extends AppCompatActivity {
                             whoAreYou);
                     try {
                         List<CalculationResult> list = calculator.getCalculationResults();
+                        ResultFragment resultFragment = ResultFragment.newInstance(list, typeCladdingValue);
+                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_result, resultFragment, ResultFragment.class.getName()).commit();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
