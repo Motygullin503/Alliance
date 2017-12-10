@@ -107,7 +107,7 @@ public class CalculateActivity extends AppCompatActivity {
                 if (!validateEmail(etEmail.getText().toString())) {
                     Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
                 } else {
-
+                    Intent intent = new Intent(context, ResultAcitivity.class);
                 }
             }
         });

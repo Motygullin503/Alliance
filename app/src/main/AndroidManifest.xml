@@ -26,7 +26,8 @@
             android:label="@string/title_activity_calculate"
             android:theme="@style/AppTheme" />
         <activity android:name=".activities.TypeOfSystemActivity" />
-        <activity android:name=".activities.WhoAreActivity"></activity>
+        <activity android:name=".activities.WhoAreActivity" />
+        <activity android:name=".activities.ResultAcitivity"></activity>
     </application>
 
 </manifest>
