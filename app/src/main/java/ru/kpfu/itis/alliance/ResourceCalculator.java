@@ -28,6 +28,7 @@ public class ResourceCalculator {
     private double doorSquare;
     private int doorsCount;
     private int mode;
+    private List<CalculationResult> list;
 
     public ResourceCalculator(double wallsPerimetr, double buildingHeight, double windowSquare, int windowsCount, double doorSquare, int doorsCount, int mode) {
         this.wallsPerimetr = wallsPerimetr;
@@ -41,7 +42,7 @@ public class ResourceCalculator {
 
     public void parseJson() throws IOException {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("java\\ru\\kpfu\\itis\\alliance\\models\\coefficient.json"), "UTF-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("java\\ru\\kpfu\\itis\\alliance\\models\\Products.json"), "UTF-8"));
 
         StringBuilder text = new StringBuilder();
         String i;
@@ -61,7 +62,7 @@ public class ResourceCalculator {
 
     public List<CalculationResult> getCalculationResults() throws IOException {
         parseJson();
-        List<CalculationResult> list = new ArrayList<>();
+        list = new ArrayList<>();
 
         switch (mode) {
             case 0:
@@ -95,6 +96,14 @@ public class ResourceCalculator {
         }
 
         return list;
+    }
+
+    public Double getTotalSum() {
+        Double sum = 0.0;
+        for (CalculationResult c : list) {
+            sum += c.getTotalPrice();
+        }
+        return new BigDecimal(sum).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
 
