@@ -70,16 +70,80 @@ public class CalculateActivity extends AppCompatActivity {
         setContentView(R.layout.calculate_activity);
 
         nameCompany = findViewById(R.id.et_name);
+        nameCompany.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) nameCompany.setHint("");
+                else nameCompany.setHint("Название объекта");
+            }
+        });
         whoAre = findViewById(R.id.tv_who_are);
         typeCladding = findViewById(R.id.type_of_cladding);
+
         perimetrWall = findViewById(R.id.et_perimetr);
+        perimetrWall.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) perimetrWall.setHint("");
+                else perimetrWall.setHint("0");
+            }
+        });
         buildingHeight = findViewById(R.id.et_building_height);
+        buildingHeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) buildingHeight.setHint("");
+                else buildingHeight.setHint("0");
+            }
+        });
         squareWindow = findViewById(R.id.et_square_window);
+        squareWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) squareWindow.setHint("");
+                else squareWindow.setHint("0");
+            }
+        });
         quantityWindow = findViewById(R.id.et_quantity_window);
+        quantityWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) quantityWindow.setHint("");
+                else quantityWindow.setHint("0");
+            }
+        });
         squareDoor = findViewById(R.id.et_square_door);
+        squareDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) squareDoor.setHint("");
+                else squareDoor.setHint("0");
+            }
+        });
         quantityDoor = findViewById(R.id.et_quantity_door);
+        quantityDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) quantityDoor.setHint("");
+                else quantityDoor.setHint("0");
+            }
+        });
         etNumberOfPhone = findViewById(R.id.et_number_of_phone);
+        etNumberOfPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) etNumberOfPhone.setHint("");
+                else etNumberOfPhone.setHint("Введите номер");
+            }
+        });
         etEmail = findViewById(R.id.et_email);
+        etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) etEmail.setHint("");
+                else etEmail.setHint("Введите email");
+            }
+        });
         btnCalculate = findViewById(R.id.btn_calculate_price);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
