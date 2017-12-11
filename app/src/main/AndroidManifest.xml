@@ -24,10 +24,17 @@
         <activity
             android:name=".activities.CalculateActivity"
             android:label="@string/title_activity_calculate"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.TypeOfSystemActivity" />
-        <activity android:name=".activities.WhoAreActivity" />
-        <activity android:name=".activities.ResultAcitivity"></activity>
+         <activity
+             android:name=".activities.TypeOfSystemActivity"
+             android:screenOrientation="portrait" />
+         <activity
+             android:name=".activities.WhoAreActivity"
+             android:screenOrientation="portrait" />
+         <activity
+             android:name=".activities.ResultAcitivity"
+             android:screenOrientation="portrait" />
     </application>
 
 </manifest>

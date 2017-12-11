@@ -3,6 +3,7 @@ package ru.kpfu.itis.alliance.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -24,10 +25,9 @@ import retrofit2.Response;
 import ru.kpfu.itis.alliance.Constants;
 import ru.kpfu.itis.alliance.R;
 import ru.kpfu.itis.alliance.ResourceCalculator;
+import ru.kpfu.itis.alliance.allianceAPI.AllianceAPI;
 import ru.kpfu.itis.alliance.allianceAPI.Api;
-import ru.kpfu.itis.alliance.fragments.ResultFragment;
 import ru.kpfu.itis.alliance.models.CalculationResult;
-import ru.kpfu.itis.alliance.models.ResponseError;
 import ru.kpfu.itis.alliance.models.ResponseSuccess;
 
 public class CalculateActivity extends AppCompatActivity {
@@ -58,7 +58,7 @@ public class CalculateActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etNumberOfPhone;
     private Button btnCalculate;
-    private Api api;
+
     private ResourceCalculator calculator;
 
     private int typeCladdingValue = Constants.COMPOSITE;
@@ -131,7 +131,7 @@ public class CalculateActivity extends AppCompatActivity {
                     Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
                 } else {
 //                    Intent intent = new Intent(context, ResultAcitivity.class);
-                    api = Api.getInstance();
+
                     calculator = new ResourceCalculator(
                             context,
                             Double.valueOf(perimetrWall.getText().toString()),
@@ -143,7 +143,28 @@ public class CalculateActivity extends AppCompatActivity {
                             whoAreYou);
                     try {
                         calculator.parseJson();
-                        List<CalculationResult> list = calculator.getCalculationResults();
+                        final List<CalculationResult> list = calculator.getCalculationResults();
+                        AllianceAPI api = Api.getInstance().getApi();
+                        Call<ResponseSuccess> call = api.sendData(etEmail.getText().toString(), etNumberOfPhone.getText().toString(), whoAre.getText().toString(), "android", calculator.getTotalSum(), true);
+
+                        call.enqueue(new Callback<ResponseSuccess>() {
+                            @Override
+                            public void onResponse(@NonNull Call<ResponseSuccess> call, @NonNull Response<ResponseSuccess> response) {
+
+                                Intent intent = new Intent(context, ResultAcitivity.class);
+                                intent.putExtra("results", (Serializable) list);
+                                intent.putExtra("typeCladding", getString(getTypeCladding()));
+                                startActivityForResult(intent, REQUEST_CODE_RESULT);
+                                Toast.makeText(CalculateActivity.this, "Запрос отправлен", Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<ResponseSuccess> call, @NonNull Throwable t) {
+                                Toast.makeText(CalculateActivity.this, "Что-то пошло не так, повторите позднее", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 //                        ResultFragment resultFragment = ResultFragment.newInstance(list, typeCladdingValue);
 //                        resultFragment.setCalculationResults(list);
 //                        getSupportFragmentManager()
@@ -151,38 +172,11 @@ public class CalculateActivity extends AppCompatActivity {
 //                                .add(R.id.fragment_result, resultFragment, ResultFragment.class.toString())
 //                                .addToBackStack(ResultFragment.class.getName())
 //                                .commit();
-                        Intent intent = new Intent(context, ResultAcitivity.class);
-                        intent.putExtra("results", (Serializable) list);
-                        intent.putExtra("typeCladding", getString(getTypeCladding()));
-                        startActivityForResult(intent, REQUEST_CODE_RESULT);
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Call<Object> call = api.getApi().sendData(etEmail.getText().toString(),
-                            etNumberOfPhone.getText().toString(),
-                            whoAre.getText().toString(),
-                            "android",
-                            calculator.getTotalSum(),
-                            true);
 
-                    call.enqueue(new Callback<Object>() {
-                        @Override
-                        public void onResponse(Call<Object> call, Response<Object> response) {
-                            if (response.body() instanceof ResponseSuccess) {
-
-                            } else if (response.body() instanceof ResponseError) {
-                                for (Object error : ((ResponseError) response.body()).getErrors()) {
-                                    Toast.makeText(CalculateActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Object> call, Throwable t) {
-                            Toast.makeText(CalculateActivity.this, "Что-то пошло не так, повторите позднее", Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 }
             }
         });
@@ -258,9 +252,10 @@ public class CalculateActivity extends AppCompatActivity {
                     setWhoAre();
                     break;
             }
-        } else if(resultCode == RESULT_CANCELED) {
+        } else if (resultCode == RESULT_CANCELED) {
             switch (requestCode) {
-                case REQUEST_CODE_RESULT: finish();
+                case REQUEST_CODE_RESULT:
+                    finish();
             }
         }
     }

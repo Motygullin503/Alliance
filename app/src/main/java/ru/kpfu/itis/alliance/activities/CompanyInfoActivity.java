@@ -2,18 +2,22 @@ package ru.kpfu.itis.alliance.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import ru.kpfu.itis.alliance.R;
-import ru.kpfu.itis.alliance.activities.MainActivity;
 
 public class CompanyInfoActivity extends AppCompatActivity {
     Activity context = this;
     TextView toolbarTitle;
+    Button toSite;
+    Button toPolitics;
 
 
     @Override
@@ -30,8 +34,24 @@ public class CompanyInfoActivity extends AppCompatActivity {
 
 
         toolbarTitle = myToolbar.findViewById(R.id.toolbar_title);
+        toSite = findViewById(R.id.toSite);
+        toPolitics = findViewById(R.id.toPolitics);
 
         toolbarTitle.setText(R.string.company_info);
+
+        toSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://afkon.ru/")));
+            }
+        });
+
+        toPolitics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://drive.google.com/file/d/1V6C70dHzlf1tobIwDEo9IRKaI_kwqJMt/view")));
+            }
+        });
     }
 
     @Override

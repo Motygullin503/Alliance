@@ -33,4 +33,5 @@
     <string name="count_materials">Количество материалов: </string>
     <string name="output_result">Вывод рассчёта</string>
     <string name="calculate_again">Рассчитать ещё один объект</string>
+    <string name="confident">Политика конфиденциальности</string>
 </resources>
