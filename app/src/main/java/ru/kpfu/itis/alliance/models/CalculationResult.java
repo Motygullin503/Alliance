@@ -1,10 +1,12 @@
 package ru.kpfu.itis.alliance.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Bulat on 05.12.2017 at 19:48.
  */
 
-public class CalculationResult {
+public class CalculationResult implements Serializable {
 
     private String title;
     private Integer resultValue;

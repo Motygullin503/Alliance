@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,8 +34,8 @@ public class CalculateActivity extends AppCompatActivity {
     public static final int DESIGNER = 2;
     public static final int EXECUTOR = 3;
     public static final int PRIVATEPERSON = 4;
-    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     public static final String PHONE_PATTERN = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$";
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private final int REQUEST_CODE_WHO_ARE = 10;
     private final int REQUEST_CODE_TYPE_OF_SYSTEM = 20;
 
@@ -131,6 +130,7 @@ public class CalculateActivity extends AppCompatActivity {
 //                    Intent intent = new Intent(context, ResultAcitivity.class);
                     api = Api.getInstance();
                     calculator = new ResourceCalculator(
+                            context,
                             Double.valueOf(perimetrWall.getText().toString()),
                             Double.valueOf(buildingHeight.getText().toString()),
                             Double.valueOf(squareWindow.getText().toString()),
@@ -139,6 +139,7 @@ public class CalculateActivity extends AppCompatActivity {
                             Integer.valueOf(quantityDoor.getText().toString()),
                             whoAreYou);
                     try {
+                        calculator.parseJson();
                         List<CalculationResult> list = calculator.getCalculationResults();
                         ResultFragment resultFragment = ResultFragment.newInstance(list, typeCladdingValue);
                         getSupportFragmentManager().beginTransaction().add(R.id.fragment_result, resultFragment, ResultFragment.class.toString()).commit();

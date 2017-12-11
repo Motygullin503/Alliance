@@ -11,7 +11,7 @@ public class Product {
     private String name;
     @SerializedName("coefficient")
     @Expose
-    private Integer coefficient;
+    private Double coefficient;
     @SerializedName("price")
     @Expose
     private Double price;
@@ -24,11 +24,11 @@ public class Product {
         this.name = name;
     }
 
-    public Integer getCoefficient() {
+    public Double getCoefficient() {
         return coefficient;
     }
 
-    public void setCoefficient(Integer coefficient) {
+    public void setCoefficient(Double coefficient) {
         this.coefficient = coefficient;
     }
 

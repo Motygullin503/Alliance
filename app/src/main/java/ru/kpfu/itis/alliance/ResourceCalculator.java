@@ -1,11 +1,11 @@
 package ru.kpfu.itis.alliance;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import ru.kpfu.itis.alliance.models.Product;
 public class ResourceCalculator {
 
     Data data;
+    Context context;
     private double wallsPerimetr;
     private double buildingHeight;
     private double windowSquare;
@@ -30,7 +31,8 @@ public class ResourceCalculator {
     private int mode;
     private List<CalculationResult> list = new ArrayList<>();
 
-    public ResourceCalculator(double wallsPerimetr, double buildingHeight, double windowSquare, int windowsCount, double doorSquare, int doorsCount, int mode) {
+    public ResourceCalculator(Context context, double wallsPerimetr, double buildingHeight, double windowSquare, int windowsCount, double doorSquare, int doorsCount, int mode) {
+        this.context = context;
         this.wallsPerimetr = wallsPerimetr;
         this.buildingHeight = buildingHeight;
         this.windowSquare = windowSquare;
@@ -42,15 +44,15 @@ public class ResourceCalculator {
 
     public void parseJson() throws IOException {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("ru\\kpfu\\itis\\alliance\\products.json"), "UTF-8"));
+        String json;
+        InputStream is = context.getAssets().open("products.json");
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        json = new String(buffer, "UTF-8");
 
-        StringBuilder text = new StringBuilder();
-        String i;
-        while ((i = br.readLine()) != null) {
-            text.append(i);
-        }
-
-        data = new Gson().fromJson(text.toString(), Data.class);
+        data = new Gson().fromJson(json, Data.class);
 
     }
 
@@ -61,7 +63,6 @@ public class ResourceCalculator {
     }
 
     public List<CalculationResult> getCalculationResults() throws IOException {
-        parseJson();
 
         switch (mode) {
             case 0:
