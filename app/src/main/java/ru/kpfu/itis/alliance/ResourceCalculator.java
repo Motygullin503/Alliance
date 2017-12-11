@@ -28,7 +28,7 @@ public class ResourceCalculator {
     private double doorSquare;
     private int doorsCount;
     private int mode;
-    private List<CalculationResult> list;
+    private List<CalculationResult> list = new ArrayList<>();
 
     public ResourceCalculator(double wallsPerimetr, double buildingHeight, double windowSquare, int windowsCount, double doorSquare, int doorsCount, int mode) {
         this.wallsPerimetr = wallsPerimetr;
@@ -42,7 +42,7 @@ public class ResourceCalculator {
 
     public void parseJson() throws IOException {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("java\\ru\\kpfu\\itis\\alliance\\models\\Products.json"), "UTF-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("ru\\kpfu\\itis\\alliance\\products.json"), "UTF-8"));
 
         StringBuilder text = new StringBuilder();
         String i;
@@ -62,7 +62,6 @@ public class ResourceCalculator {
 
     public List<CalculationResult> getCalculationResults() throws IOException {
         parseJson();
-        list = new ArrayList<>();
 
         switch (mode) {
             case 0:

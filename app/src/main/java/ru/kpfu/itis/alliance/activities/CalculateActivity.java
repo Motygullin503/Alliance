@@ -36,10 +36,12 @@ public class CalculateActivity extends AppCompatActivity {
     public static final int EXECUTOR = 3;
     public static final int PRIVATEPERSON = 4;
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
+    public static final String PHONE_PATTERN = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$";
     private final int REQUEST_CODE_WHO_ARE = 10;
     private final int REQUEST_CODE_TYPE_OF_SYSTEM = 20;
 
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+    private Pattern patternPhone = Pattern.compile(PHONE_PATTERN);
 
     private Activity context = this;
     private TextView toolbarTitle;
@@ -118,11 +120,15 @@ public class CalculateActivity extends AppCompatActivity {
         btnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateEmail(etEmail.getText().toString())) {
+                if (nameCompany.length() == 0 || perimetrWall.length() == 0 || buildingHeight.length()==0||squareWindow.length()==0
+                        ||quantityWindow.length()==0||squareDoor.length()==0||quantityDoor.length()==0) {
+                    Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show();
+                } else if (!validatePhone(etNumberOfPhone.getText().toString())) {
+                    Toast.makeText(context, "Введите корректный номер телефона", Toast.LENGTH_LONG).show();
+                } else if (!validateEmail(etEmail.getText().toString())) {
                     Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
                 } else {
 //                    Intent intent = new Intent(context, ResultAcitivity.class);
-                    Bundle args = new Bundle();
                     api = Api.getInstance();
                     calculator = new ResourceCalculator(
                             Double.valueOf(perimetrWall.getText().toString()),
@@ -135,7 +141,7 @@ public class CalculateActivity extends AppCompatActivity {
                     try {
                         List<CalculationResult> list = calculator.getCalculationResults();
                         ResultFragment resultFragment = ResultFragment.newInstance(list, typeCladdingValue);
-                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_result, resultFragment, ResultFragment.class.getName()).commit();
+                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_result, resultFragment, ResultFragment.class.toString()).commit();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -187,6 +193,11 @@ public class CalculateActivity extends AppCompatActivity {
 
     public boolean validateEmail(String email) {
         Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public boolean validatePhone(String phone) {
+        Matcher matcher = patternPhone.matcher(phone);
         return matcher.matches();
     }
 

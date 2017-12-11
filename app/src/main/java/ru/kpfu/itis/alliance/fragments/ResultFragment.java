@@ -46,10 +46,11 @@ public class ResultFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        System.out.println("SSTTSART FRAGMENT");
         context = (CalculateActivity) getContext(); //ToDo сделать передачу контекста нормальной
         final List<CalculationResult> calculationResults = (List<CalculationResult>) getArguments().getSerializable("results");
         final int type = getArguments().getInt("typeCladding");
-
+        System.out.println("ALASLLASLS "+calculationResults.size());
         Toolbar myToolbar = view.findViewById(R.id.my_toolbar);
         context.setSupportActionBar(myToolbar);
         tvCountMaterials.findViewById(R.id.tv_count_materials);
