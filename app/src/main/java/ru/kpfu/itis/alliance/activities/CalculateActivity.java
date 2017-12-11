@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +39,7 @@ public class CalculateActivity extends AppCompatActivity {
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private final int REQUEST_CODE_WHO_ARE = 10;
     private final int REQUEST_CODE_TYPE_OF_SYSTEM = 20;
+    private final int REQUEST_CODE_RESULT = 30;
 
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     private Pattern patternPhone = Pattern.compile(PHONE_PATTERN);
@@ -93,7 +95,8 @@ public class CalculateActivity extends AppCompatActivity {
 
         whoAre.setText("Заказчик");
 
-        setTypeCladding();
+//        setTypeCladding();
+        typeCladding.setText(getTypeCladding());
         setWhoAre();
 
 
@@ -119,8 +122,8 @@ public class CalculateActivity extends AppCompatActivity {
         btnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nameCompany.length() == 0 || perimetrWall.length() == 0 || buildingHeight.length()==0||squareWindow.length()==0
-                        ||quantityWindow.length()==0||squareDoor.length()==0||quantityDoor.length()==0) {
+                if (nameCompany.length() == 0 || perimetrWall.length() == 0 || buildingHeight.length() == 0 || squareWindow.length() == 0
+                        || quantityWindow.length() == 0 || squareDoor.length() == 0 || quantityDoor.length() == 0) {
                     Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show();
                 } else if (!validatePhone(etNumberOfPhone.getText().toString())) {
                     Toast.makeText(context, "Введите корректный номер телефона", Toast.LENGTH_LONG).show();
@@ -141,8 +144,18 @@ public class CalculateActivity extends AppCompatActivity {
                     try {
                         calculator.parseJson();
                         List<CalculationResult> list = calculator.getCalculationResults();
-                        ResultFragment resultFragment = ResultFragment.newInstance(list, typeCladdingValue);
-                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_result, resultFragment, ResultFragment.class.toString()).commit();
+//                        ResultFragment resultFragment = ResultFragment.newInstance(list, typeCladdingValue);
+//                        resultFragment.setCalculationResults(list);
+//                        getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .add(R.id.fragment_result, resultFragment, ResultFragment.class.toString())
+//                                .addToBackStack(ResultFragment.class.getName())
+//                                .commit();
+                        Intent intent = new Intent(context, ResultAcitivity.class);
+                        intent.putExtra("results", (Serializable) list);
+                        intent.putExtra("typeCladding", getString(getTypeCladding()));
+                        startActivityForResult(intent, REQUEST_CODE_RESULT);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -189,7 +202,6 @@ public class CalculateActivity extends AppCompatActivity {
         Intent intent = new Intent(context, MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 
     public boolean validateEmail(String email) {
@@ -202,20 +214,18 @@ public class CalculateActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    public void setTypeCladding() {
+    public int getTypeCladding() {
         switch (typeCladdingValue) {
             case Constants.COMPOSITE:
-                typeCladding.setText(R.string.composit);
-                break;
+                return R.string.composit;
             case Constants.KERAMOGRANITE:
-                typeCladding.setText(R.string.keramogranit);
-                break;
+                return R.string.keramogranit;
             case Constants.FIBROPLITA:
-                typeCladding.setText(R.string.fibroplita);
-                break;
+                return R.string.fibroplita;
             case Constants.METALLOKASSETA:
-                typeCladding.setText(R.string.metallokaseta);
+                return R.string.metallokaseta;
         }
+        return R.string.composit;
     }
 
     public void setWhoAre() {
@@ -241,12 +251,16 @@ public class CalculateActivity extends AppCompatActivity {
             switch (requestCode) {
                 case REQUEST_CODE_TYPE_OF_SYSTEM:
                     typeCladdingValue = data.getIntExtra("type", Constants.COMPOSITE);
-                    setTypeCladding();
+                    typeCladding.setText(getTypeCladding());
                     break;
                 case REQUEST_CODE_WHO_ARE:
                     whoAreYou = data.getIntExtra("who_are", CUSTOMER);
                     setWhoAre();
                     break;
+            }
+        } else if(resultCode == RESULT_CANCELED) {
+            switch (requestCode) {
+                case REQUEST_CODE_RESULT: finish();
             }
         }
     }
