@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,8 @@ public class CalculateActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etNumberOfPhone;
     private Button btnCalculate;
+    private ProgressBar progressBar;
+    private ScrollView scrollView;
 
     private ResourceCalculator calculator;
 
@@ -77,6 +81,9 @@ public class CalculateActivity extends AppCompatActivity {
                 else nameCompany.setHint("Название объекта");
             }
         });
+        progressBar = findViewById(R.id.progressBar);
+        scrollView = findViewById(R.id.scrollView2);
+
         whoAre = findViewById(R.id.tv_who_are);
         typeCladding = findViewById(R.id.type_of_cladding);
 
@@ -85,7 +92,7 @@ public class CalculateActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) perimetrWall.setHint("");
-                else perimetrWall.setHint("0");
+                else perimetrWall.setHint("-");
             }
         });
         buildingHeight = findViewById(R.id.et_building_height);
@@ -93,7 +100,7 @@ public class CalculateActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) buildingHeight.setHint("");
-                else buildingHeight.setHint("0");
+                else buildingHeight.setHint("-");
             }
         });
         squareWindow = findViewById(R.id.et_square_window);
@@ -101,7 +108,7 @@ public class CalculateActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) squareWindow.setHint("");
-                else squareWindow.setHint("0");
+                else squareWindow.setHint("-");
             }
         });
         quantityWindow = findViewById(R.id.et_quantity_window);
@@ -109,7 +116,7 @@ public class CalculateActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) quantityWindow.setHint("");
-                else quantityWindow.setHint("0");
+                else quantityWindow.setHint("-");
             }
         });
         squareDoor = findViewById(R.id.et_square_door);
@@ -117,7 +124,7 @@ public class CalculateActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) squareDoor.setHint("");
-                else squareDoor.setHint("0");
+                else squareDoor.setHint("-");
             }
         });
         quantityDoor = findViewById(R.id.et_quantity_door);
@@ -125,7 +132,7 @@ public class CalculateActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) quantityDoor.setHint("");
-                else quantityDoor.setHint("0");
+                else quantityDoor.setHint("-");
             }
         });
         etNumberOfPhone = findViewById(R.id.et_number_of_phone);
@@ -186,6 +193,8 @@ public class CalculateActivity extends AppCompatActivity {
         btnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setVisibleProgressBar();
+
                 if (nameCompany.length() == 0 || perimetrWall.length() == 0 || buildingHeight.length() == 0 || squareWindow.length() == 0
                         || quantityWindow.length() == 0 || squareDoor.length() == 0 || quantityDoor.length() == 0) {
                     Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show();
@@ -226,6 +235,7 @@ public class CalculateActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(@NonNull Call<ResponseSuccess> call, @NonNull Throwable t) {
+                                setVisibleProgressBar();
                                 Toast.makeText(CalculateActivity.this, "Что-то пошло не так, повторите позднее", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -238,6 +248,7 @@ public class CalculateActivity extends AppCompatActivity {
 //                                .commit();
 
                     } catch (IOException e) {
+                        setVisibleProgressBar();
                         e.printStackTrace();
                     }
 
@@ -321,6 +332,16 @@ public class CalculateActivity extends AppCompatActivity {
                 case REQUEST_CODE_RESULT:
                     finish();
             }
+        }
+    }
+    private void setVisibleProgressBar(){
+        if(progressBar.getVisibility()==View.VISIBLE){
+            progressBar.setVisibility(View.GONE);
+            scrollView.setVisibility(View.VISIBLE);
+        }
+        else {
+            progressBar.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.GONE);
         }
     }
 }
