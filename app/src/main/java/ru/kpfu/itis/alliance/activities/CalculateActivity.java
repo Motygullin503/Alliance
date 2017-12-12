@@ -193,8 +193,6 @@ public class CalculateActivity extends AppCompatActivity {
         btnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setVisibleProgressBar();
-
                 if (nameCompany.length() == 0 || perimetrWall.length() == 0 || buildingHeight.length() == 0 || squareWindow.length() == 0
                         || quantityWindow.length() == 0 || squareDoor.length() == 0 || quantityDoor.length() == 0) {
                     Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show();
@@ -204,7 +202,7 @@ public class CalculateActivity extends AppCompatActivity {
                     Toast.makeText(context, "Проверьте правильность email", Toast.LENGTH_SHORT).show();
                 } else {
 //                    Intent intent = new Intent(context, ResultAcitivity.class);
-
+                    setVisibleProgressBar();
                     calculator = new ResourceCalculator(
                             context,
                             Double.valueOf(perimetrWall.getText().toString()),
