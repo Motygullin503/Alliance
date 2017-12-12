@@ -326,6 +326,9 @@ public class CalculateActivity extends AppCompatActivity {
                     whoAreYou = data.getIntExtra("who_are", CUSTOMER);
                     setWhoAre();
                     break;
+                case REQUEST_CODE_RESULT:
+                    setVisibleProgressBar();
+                    break;
             }
         } else if (resultCode == RESULT_CANCELED) {
             switch (requestCode) {
