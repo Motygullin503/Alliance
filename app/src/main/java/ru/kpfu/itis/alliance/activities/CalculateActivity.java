@@ -90,53 +90,53 @@ public class CalculateActivity extends AppCompatActivity {
         typeCladding = findViewById(R.id.type_of_cladding);
 
         perimetrWall = findViewById(R.id.et_perimetr);
-        perimetrWall.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) perimetrWall.setHint("");
-                else perimetrWall.setHint("-");
-            }
-        });
+//        perimetrWall.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) perimetrWall.setHint("");
+//                else perimetrWall.setHint("-");
+//            }
+//        });
         buildingHeight = findViewById(R.id.et_building_height);
-        buildingHeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) buildingHeight.setHint("");
-                else buildingHeight.setHint("-");
-            }
-        });
+//        buildingHeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) buildingHeight.setHint("");
+//                else buildingHeight.setHint("-");
+//            }
+//        });
         squareWindow = findViewById(R.id.et_square_window);
-        squareWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) squareWindow.setHint("");
-                else squareWindow.setHint("-");
-            }
-        });
+//        squareWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) squareWindow.setHint("");
+//                else squareWindow.setHint("-");
+//            }
+//        });
         quantityWindow = findViewById(R.id.et_quantity_window);
-        quantityWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) quantityWindow.setHint("");
-                else quantityWindow.setHint("-");
-            }
-        });
+//        quantityWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) quantityWindow.setHint("");
+//                else quantityWindow.setHint("-");
+//            }
+//        });
         squareDoor = findViewById(R.id.et_square_door);
-        squareDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) squareDoor.setHint("");
-                else squareDoor.setHint("-");
-            }
-        });
+//        squareDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) squareDoor.setHint("");
+//                else squareDoor.setHint("-");
+//            }
+//        });
         quantityDoor = findViewById(R.id.et_quantity_door);
-        quantityDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) quantityDoor.setHint("");
-                else quantityDoor.setHint("-");
-            }
-        });
+//        quantityDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) quantityDoor.setHint("");
+//                else quantityDoor.setHint("-");
+//            }
+//        });
         etNumberOfPhone = findViewById(R.id.et_number_of_phone);
         etNumberOfPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
