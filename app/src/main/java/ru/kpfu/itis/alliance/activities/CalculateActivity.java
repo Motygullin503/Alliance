@@ -15,6 +15,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -215,8 +217,16 @@ public class CalculateActivity extends AppCompatActivity {
                     try {
                         calculator.parseJson();
                         final List<CalculationResult> list = calculator.getCalculationResults();
+                        JSONArray array = new JSONArray(list);
                         AllianceAPI api = Api.getInstance().getApi();
-                        Call<ResponseSuccess> call = api.sendData(etEmail.getText().toString(), etNumberOfPhone.getText().toString(), whoAre.getText().toString(), "android", calculator.getTotalSum(), true);
+                        Call<ResponseSuccess> call = api.sendData(etNumberOfPhone.getText().toString(),
+                                etEmail.getText().toString(), nameCompany.getText().toString(),
+                                whoAre.getText().toString(),
+                                "android",
+                                calculator.getTotalSum(),
+                                calculator.getPricePerM(),
+                                array,
+                                true);
 
                         call.enqueue(new Callback<ResponseSuccess>() {
                             @Override

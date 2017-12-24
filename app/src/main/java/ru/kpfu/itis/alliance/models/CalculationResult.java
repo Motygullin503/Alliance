@@ -1,5 +1,8 @@
 package ru.kpfu.itis.alliance.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,8 +11,14 @@ import java.io.Serializable;
 
 public class CalculationResult implements Serializable {
 
+    @SerializedName("title")
+    @Expose
     private String title;
+    @SerializedName("result_value")
+    @Expose
     private Integer resultValue;
+    @SerializedName("total_price")
+    @Expose
     private Double totalPrice;
 
     public CalculationResult(String title, Integer resultValue, Double totalPrice) {
