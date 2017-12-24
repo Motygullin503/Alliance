@@ -22,6 +22,7 @@ public class ResourceCalculator {
 
     Data data;
     Context context;
+    Double totalPrice;
     private double wallsPerimetr;
     private double buildingHeight;
     private double windowSquare;
@@ -98,12 +99,18 @@ public class ResourceCalculator {
         return list;
     }
 
+    public Double getPricePerM() {
+        Double pricePerM = totalPrice / getTotalArea();
+        return new BigDecimal(pricePerM).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
     public Double getTotalSum() {
         Double sum = 0.0;
         for (CalculationResult c : list) {
             sum += c.getTotalPrice();
         }
-        return new BigDecimal(sum).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        totalPrice = new BigDecimal(sum).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return totalPrice;
     }
 
 
