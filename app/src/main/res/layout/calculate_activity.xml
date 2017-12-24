@@ -411,7 +411,7 @@
                 android:textColor="@color/text_edit"
                 android:textSize="@dimen/text_calculate_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.516"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/textViewContacts" />
 
@@ -429,7 +429,7 @@
                 android:textColor="@color/text_edit"
                 android:textSize="@dimen/text_calculate_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.516"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/et_number_of_phone" />
 

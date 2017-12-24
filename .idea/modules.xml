@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Alliance.iml" filepath="$PROJECT_DIR$/Alliance.iml" />
-      <module fileurl="file://C:\Tolya\Univer\Android3course\Alliance\Alliance.iml" filepath="C:\Tolya\Univer\Android3course\Alliance\Alliance.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Tolya\Univer\Android3course\Alliance\app\app.iml" filepath="C:\Tolya\Univer\Android3course\Alliance\app\app.iml" />
     </modules>
   </component>
 </project>
