@@ -27,4 +27,9 @@
         android:textColor="@color/black"
         android:layout_marginTop="4dp"
         android:textSize="15sp" />
+    <View
+        android:layout_marginTop="6dp"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/text_edit" />
 </LinearLayout>
