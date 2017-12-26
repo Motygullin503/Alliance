@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -97,6 +101,7 @@ public class CalculateActivity extends AppCompatActivity {
                 else perimetrWall.setHint("-");
             }
         });
+
         buildingHeight = findViewById(R.id.et_building_height);
         buildingHeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -105,6 +110,7 @@ public class CalculateActivity extends AppCompatActivity {
                 else buildingHeight.setHint("-");
             }
         });
+
         squareWindow = findViewById(R.id.et_square_window);
         squareWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -113,6 +119,7 @@ public class CalculateActivity extends AppCompatActivity {
                 else squareWindow.setHint("-");
             }
         });
+
         quantityWindow = findViewById(R.id.et_quantity_window);
         quantityWindow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -121,6 +128,7 @@ public class CalculateActivity extends AppCompatActivity {
                 else quantityWindow.setHint("-");
             }
         });
+
         squareDoor = findViewById(R.id.et_square_door);
         squareDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -129,6 +137,7 @@ public class CalculateActivity extends AppCompatActivity {
                 else squareDoor.setHint("-");
             }
         });
+
         quantityDoor = findViewById(R.id.et_quantity_door);
         quantityDoor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -137,6 +146,7 @@ public class CalculateActivity extends AppCompatActivity {
                 else quantityDoor.setHint("-");
             }
         });
+
         etNumberOfPhone = findViewById(R.id.et_number_of_phone);
         etNumberOfPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -213,11 +223,12 @@ public class CalculateActivity extends AppCompatActivity {
                             Integer.valueOf(quantityWindow.getText().toString()),
                             Double.valueOf(squareDoor.getText().toString()),
                             Integer.valueOf(quantityDoor.getText().toString()),
-                            whoAreYou);
+                            typeCladdingValue);
                     try {
                         calculator.parseJson();
                         final List<CalculationResult> list = calculator.getCalculationResults();
-                        JSONArray array = new JSONArray(list);
+                        JSONArray array = new JSONArray(new Gson().toJson(list));
+                        Log.d("JSON", array.toString());
                         AllianceAPI api = Api.getInstance().getApi();
                         Call<ResponseSuccess> call = api.sendData(etNumberOfPhone.getText().toString(),
                                 etEmail.getText().toString(), nameCompany.getText().toString(),
@@ -228,25 +239,30 @@ public class CalculateActivity extends AppCompatActivity {
                                 array,
                                 true);
 
-                        call.enqueue(new Callback<ResponseSuccess>() {
-                            @Override
-                            public void onResponse(@NonNull Call<ResponseSuccess> call, @NonNull Response<ResponseSuccess> response) {
-
-                                Intent intent = new Intent(context, ResultAcitivity.class);
-                                intent.putExtra("results", (Serializable) list);
-                                intent.putExtra("typeCladding", getString(getTypeCladding()));
-                                startActivityForResult(intent, REQUEST_CODE_RESULT);
-                                Toast.makeText(CalculateActivity.this, "Запрос отправлен", Toast.LENGTH_SHORT).show();
+                        if (calculator.getTotalSum() != 0.0) {
 
 
-                            }
+                            call.enqueue(new Callback<ResponseSuccess>() {
+                                @Override
+                                public void onResponse(@NonNull Call<ResponseSuccess> call, @NonNull Response<ResponseSuccess> response) {
 
-                            @Override
-                            public void onFailure(@NonNull Call<ResponseSuccess> call, @NonNull Throwable t) {
-                                setVisibleProgressBar();
-                                Toast.makeText(CalculateActivity.this, "Что-то пошло не так, повторите позднее", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                    Intent intent = new Intent(context, ResultAcitivity.class);
+                                    intent.putExtra("results", (Serializable) list);
+                                    intent.putExtra("typeCladding", getString(getTypeCladding()));
+                                    startActivityForResult(intent, REQUEST_CODE_RESULT);
+
+
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<ResponseSuccess> call, @NonNull Throwable t) {
+                                    setVisibleProgressBar();
+                                    Toast.makeText(CalculateActivity.this, "Что-то пошло не так, повторите позднее", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(context, "Проверьте правильность введенных данных", Toast.LENGTH_SHORT).show();
+                        }
 //                        ResultFragment resultFragment = ResultFragment.newInstance(list, typeCladdingValue);
 //                        resultFragment.setCalculationResults(list);
 //                        getSupportFragmentManager()
@@ -257,6 +273,8 @@ public class CalculateActivity extends AppCompatActivity {
 
                     } catch (IOException e) {
                         setVisibleProgressBar();
+                        e.printStackTrace();
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
 

@@ -5,16 +5,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseSuccess {
 
-    @SerializedName("success")
+    @SerializedName("response")
     @Expose
-    private Boolean success;
+    private String response;
 
-    public Boolean getSuccess() {
-        return success;
+
+    public String getResponse() {
+        return response;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public void setResponse(String response) {
+        this.response = response;
     }
+
 
 }

@@ -11,13 +11,13 @@ import java.io.Serializable;
 
 public class CalculationResult implements Serializable {
 
-    @SerializedName("title")
+    @SerializedName("name")
     @Expose
     private String title;
-    @SerializedName("result_value")
+    @SerializedName("count")
     @Expose
     private Integer resultValue;
-    @SerializedName("total_price")
+    @SerializedName("total")
     @Expose
     private Double totalPrice;
 

@@ -1,6 +1,7 @@
 package ru.kpfu.itis.alliance;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -23,6 +24,7 @@ public class ResourceCalculator {
     Data data;
     Context context;
     Double totalPrice;
+    List<CalculationResult> list;
     private double wallsPerimetr;
     private double buildingHeight;
     private double windowSquare;
@@ -30,7 +32,7 @@ public class ResourceCalculator {
     private double doorSquare;
     private int doorsCount;
     private int mode;
-    private List<CalculationResult> list = new ArrayList<>();
+
 
     public ResourceCalculator(Context context, double wallsPerimetr, double buildingHeight, double windowSquare, int windowsCount, double doorSquare, int doorsCount, int mode) {
         this.context = context;
@@ -60,39 +62,56 @@ public class ResourceCalculator {
     public double getTotalArea() {
         double area;
         area = wallsPerimetr * buildingHeight - (doorSquare * doorsCount + windowSquare * windowsCount);
-        return area;
+        if (area > 0)
+            return area;
+        else {
+
+            return 0;
+        }
     }
 
     public List<CalculationResult> getCalculationResults() throws IOException {
-
+        list = new ArrayList<>();
         switch (mode) {
             case 0:
+
                 for (Product product : data.getData().get(0).getProducts()) {
                     double resultValue = product.getCoefficient() * getTotalArea();
 
                     list.add(new CalculationResult(product.getName(), (int) Math.ceil(resultValue), new BigDecimal(product.getPrice() * resultValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
                 }
 
+                break;
+
             case 1:
+
                 for (Product product : data.getData().get(1).getProducts()) {
                     double resultValue = product.getCoefficient() * getTotalArea();
 
                     list.add(new CalculationResult(product.getName(), (int) Math.ceil(resultValue), new BigDecimal(product.getPrice() * resultValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
                 }
 
+                break;
+
             case 2:
+
                 for (Product product : data.getData().get(2).getProducts()) {
                     double resultValue = product.getCoefficient() * getTotalArea();
 
                     list.add(new CalculationResult(product.getName(), (int) Math.ceil(resultValue), new BigDecimal(product.getPrice() * resultValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
                 }
 
+                break;
+
             case 3:
+
                 for (Product product : data.getData().get(3).getProducts()) {
                     double resultValue = product.getCoefficient() * getTotalArea();
 
                     list.add(new CalculationResult(product.getName(), (int) Math.ceil(resultValue), new BigDecimal(product.getPrice() * resultValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
                 }
+
+                break;
 
         }
 
@@ -100,8 +119,13 @@ public class ResourceCalculator {
     }
 
     public Double getPricePerM() {
-        Double pricePerM = totalPrice / getTotalArea();
-        return new BigDecimal(pricePerM).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        if (getTotalArea() == 0.0) {
+            Toast.makeText(context, "Общая площадь отрицательная или равна нулю", Toast.LENGTH_SHORT).show();
+            return BigDecimal.ZERO.doubleValue();
+        } else {
+            Double pricePerM = totalPrice / getTotalArea();
+            return new BigDecimal(pricePerM).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }
     }
 
     public Double getTotalSum() {
