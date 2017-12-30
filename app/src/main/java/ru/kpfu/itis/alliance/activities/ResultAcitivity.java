@@ -2,11 +2,12 @@ package ru.kpfu.itis.alliance.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class ResultAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_result);
 
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         Intent intent = getIntent();
         final List<CalculationResult> calculationResults = (List<CalculationResult>) intent.getSerializableExtra("results");
         final String type = intent.getStringExtra("typeCladding");
@@ -47,7 +50,7 @@ public class ResultAcitivity extends AppCompatActivity {
 
         tvCountMaterials.setText(tvCountMaterials.getText().toString() +" "+ type);
 
-        final LinearLayout linear = (LinearLayout) findViewById(R.id.ll_elements);
+        final LinearLayout linear = findViewById(R.id.ll_elements);
         List<View> elements = new ArrayList<>();
         for (CalculationResult calculationResult : calculationResults) {
             final View viewElement = getLayoutInflater().inflate(R.layout.result_element, null, false);

@@ -8,6 +8,19 @@
     android:fitsSystemWindows="true"
     tools:context="ru.kpfu.itis.alliance.activities.CompanyInfoActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+    </include>
 
     <ScrollView
         android:layout_width="0dp"
@@ -15,26 +28,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include"
         app:layout_constraintVertical_bias="1.0">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <include
-                android:id="@+id/include"
-                layout="@layout/toolbar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_constraintLeft_creator="1"
-                tools:layout_constraintRight_creator="1"
-                tools:layout_constraintTop_creator="1">
-
-            </include>
 
             <ImageView
                 android:id="@+id/imageView"
@@ -42,7 +42,7 @@
                 android:layout_height="200dp"
                 android:layout_marginEnd="91dp"
                 android:layout_marginStart="91dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="32dp"
                 android:contentDescription="@string/logo"
                 android:src="@drawable/logo"
                 app:layout_constraintEnd_toEndOf="parent"

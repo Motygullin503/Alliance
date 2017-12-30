@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="ru.kpfu.itis.alliance.activities.TypeOfSystemActivity">
 
     <include
@@ -22,7 +23,7 @@
         android:id="@+id/tv_composit"
         android:layout_width="170dp"
         android:layout_height="44dp"
-        android:fontFamily="@font/sfui_text_medium"
+        android:fontFamily="@font/sfui_display_regular"
         android:gravity="center_vertical"
         android:paddingStart="15dp"
         android:text="@string/composit"
@@ -35,7 +36,7 @@
         android:id="@+id/tv_keramogranit"
         android:layout_width="170dp"
         android:layout_height="44dp"
-        android:fontFamily="@font/sfui_text_medium"
+        android:fontFamily="@font/sfui_display_regular"
         android:gravity="center_vertical"
         android:paddingStart="15dp"
         android:text="@string/keramogranit"
@@ -48,7 +49,7 @@
         android:id="@+id/tv_fibroplita"
         android:layout_width="170dp"
         android:layout_height="44dp"
-        android:fontFamily="@font/sfui_text_medium"
+        android:fontFamily="@font/sfui_display_regular"
         android:gravity="center_vertical"
         android:paddingStart="15dp"
         android:text="@string/fibroplita"
@@ -61,7 +62,7 @@
         android:id="@+id/tv_metallokaseta"
         android:layout_width="170dp"
         android:layout_height="44dp"
-        android:fontFamily="@font/sfui_text_medium"
+        android:fontFamily="@font/sfui_display_regular"
         android:gravity="center_vertical"
         android:paddingStart="15dp"
         android:text="@string/metallokaseta"
@@ -74,6 +75,7 @@
         android:id="@+id/radio_group_types"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +87,6 @@
             android:id="@+id/checkBox_composite"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:paddingLeft="10dp"
             app:layout_constraintEnd_toEndOf="@+id/checkBox_metalokaseta"
             app:layout_constraintTop_toBottomOf="@+id/include" />
 

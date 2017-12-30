@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -78,6 +79,8 @@ public class CalculateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculate_activity);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
 
         nameCompany = findViewById(R.id.et_name);
         nameCompany.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -166,7 +169,9 @@ public class CalculateActivity extends AppCompatActivity {
         btnCalculate = findViewById(R.id.btn_calculate_price);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        myToolbar.bringToFront();
         setSupportActionBar(myToolbar);
+
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -174,7 +179,7 @@ public class CalculateActivity extends AppCompatActivity {
 
 
         toolbarTitle = myToolbar.findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Рассчет");
+        toolbarTitle.setText("Расчёт");
 
         whoAre.setText("Заказчик");
 

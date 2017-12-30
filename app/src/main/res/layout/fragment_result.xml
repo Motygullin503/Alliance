@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
 
     <ScrollView
         android:layout_width="0dp"
@@ -52,9 +53,9 @@
                 android:id="@+id/ll_elements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
+                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/tv_count_materials"
                 tools:layout_editor_absoluteY="78dp">
 

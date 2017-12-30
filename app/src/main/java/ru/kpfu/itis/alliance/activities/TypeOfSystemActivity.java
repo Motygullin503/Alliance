@@ -2,12 +2,11 @@ package ru.kpfu.itis.alliance.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.CheckBox;
-import android.widget.EditText;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -31,6 +30,9 @@ public class TypeOfSystemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type_of_system);
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         cbComposit = findViewById(R.id.checkBox_composite);
         cbKeramogranit = findViewById(R.id.checkBox_keramogranit);
         cbFibroplita = findViewById(R.id.checkBox_fibroplita);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Альянс</string>
+    <string name="app_name">Калькулятор АФКОН</string>
     <string name="logo">Логотип</string>
     <string name="calculate">Рассчитать</string>
     <string name="company_info">О компании</string>
@@ -31,7 +31,7 @@
     <string name="private_person">Частное лицо</string>
 
     <string name="count_materials">Количество материалов: </string>
-    <string name="output_result">Вывод рассчёта</string>
+    <string name="output_result">Вывод расчёта</string>
     <string name="calculate_again">Рассчитать ещё один объект</string>
     <string name="confident">Политика конфиденциальности</string>
     <string name="nameOfObject">Название объекта</string>

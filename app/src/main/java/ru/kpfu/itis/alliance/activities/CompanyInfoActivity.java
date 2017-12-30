@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -25,7 +26,10 @@ public class CompanyInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_info);
 
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        myToolbar.bringToFront();
         setSupportActionBar(myToolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -38,6 +42,7 @@ public class CompanyInfoActivity extends AppCompatActivity {
         toPolitics = findViewById(R.id.toPolitics);
 
         toolbarTitle.setText(R.string.company_info);
+
 
         toSite.setOnClickListener(new View.OnClickListener() {
             @Override

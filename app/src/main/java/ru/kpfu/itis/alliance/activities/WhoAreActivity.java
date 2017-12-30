@@ -2,15 +2,15 @@ package ru.kpfu.itis.alliance.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import ru.kpfu.itis.alliance.Constants;
 import ru.kpfu.itis.alliance.R;
 
 public class WhoAreActivity extends AppCompatActivity {
@@ -29,6 +29,9 @@ public class WhoAreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_who_are);
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         rbDesigner = findViewById(R.id.checkBox_designer);
         rbExecutor = findViewById(R.id.checkBox_executor);
         rbCustomer = findViewById(R.id.checkBox_customer);
